@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile - Arief Kurniawan</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+      /* Styling untuk animasi project list */
+      /* Styling untuk elemen SVG */
+      #project-routes {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          pointer-events: none;
+        }
+
+        ul {
+          margin-left: 20px;
+          max-height: 0;
+          overflow: hidden;
+          opacity: 0;
+          transition: max-height 0.5s ease, opacity 0.5s ease;
+        }
+
+        ul.visible {
+          max-height: 500px;
+          opacity: 1;
+        }
+
+        h3 {
+          cursor: pointer;
+          color: #333;
+        }
+    /* Global Styles */
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #fff;
+      color: #000;
+      line-height: 1.6;
+    }
+
+    a {
+      color: #000;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease-in-out;
+    }
+
+    a:hover {
+      color: #555;
+    }
+      /* Header Styles */
+      header {
+        background: linear-gradient(135deg, #f5f5f5, #ececec);
+        padding: 10px 10%;
+        text-align: center;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        border-bottom: 2px solid #ddd;
+      }
+
+      .header-content h1 {
+        font-size: 1.5em;
+        margin: 0;
+        font-weight: 700;
+        color: #333;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      }
+
+      .header-content p {
+        margin-top: 10px;
+        font-weight: 300;
+        font-size: 1em;
+        color: #555;
+      }
+
+    /* Section Styles */
+    section {
+      padding: 50px 10%;
+      margin: 20px 0;
+      border-radius: 10px;
+      background-color: #f7f7f7;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    section h2 {
+      font-size: 2em;
+      margin-bottom: 20px;
+      font-weight: 600;
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 10px;
+      color: #444;
+    }
+
+    section p {
+      font-weight: 300;
+      color: #555;
+    }
+
+    /* Fade-in Animation */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9em;
+      background-color: #f9f9f9;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <h1>Hallo, World</h1>
+      <p>I'm Is Tech Enthusiast | Developer | Content Creator</p>
+    </div>
+  </header>
+
+  <section id="about">
+    <h2>About Me</h2>
+    <div style="display: flex; align-items: center; gap: 20px;">
+      <img src="arief.png" alt="Arief Kurniawan" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+      <p>
+        Hello, I'm Arief, a passionate developer who loves creating beautiful and functional web applications. I specialize in modern web technologies and strive to make an impact in the tech world.
+      </p>
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2>Projects</h2>
+    <div id="project-menu">
+      <!-- Dynamic categories and projects will be added here -->
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact Me</h2>
+    <p>GitHub: <a href="https://github.com/arief1306" target="_blank">github.com/arief1306</a></p>
+  </section>
+
+  <footer>
+    &copy; 2024 Arief Kurniawan - All Rights Reserved
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
