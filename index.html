@@ -1,166 +1,1485 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Profile - Arief Kurniawan</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-  <style>
-      /* Styling untuk animasi project list */
-      /* Styling untuk elemen SVG */
-      #project-routes {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          pointer-events: none;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arief Kurniawan — Full Stack Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-        ul {
-          margin-left: 20px;
-          max-height: 0;
-          overflow: hidden;
-          opacity: 0;
-          transition: max-height 0.5s ease, opacity 0.5s ease;
-        }
+  :root {
+    --bg: #0a0a0f;
+    --bg2: #0f0f18;
+    --card: #12121e;
+    --accent: #7fffb2;
+    --accent2: #5ee6ff;
+    --accent3: #ff6b6b;
+    --text: #e8e8f0;
+    --muted: #6b6b8a;
+    --border: rgba(127,255,178,0.12);
+  }
 
-        ul.visible {
-          max-height: 500px;
-          opacity: 1;
-        }
+  html { scroll-behavior: smooth; }
 
-        h3 {
-          cursor: pointer;
-          color: #333;
-        }
-    /* Global Styles */
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background-color: #fff;
-      color: #000;
-      line-height: 1.6;
-    }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
 
-    a {
-      color: #000;
-      text-decoration: none;
-      font-weight: 600;
-      transition: color 0.3s ease-in-out;
-    }
+  /* CUSTOM CURSOR */
+  .cursor {
+    width: 12px; height: 12px;
+    background: var(--accent);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9999;
+    transition: transform 0.1s ease;
+    mix-blend-mode: screen;
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1.5px solid var(--accent);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9998;
+    transition: all 0.15s ease;
+    opacity: 0.5;
+  }
+  body:hover .cursor { transform: scale(1); }
 
-    a:hover {
-      color: #555;
-    }
-      /* Header Styles */
-      header {
-        background: linear-gradient(135deg, #f5f5f5, #ececec);
-        padding: 10px 10%;
-        text-align: center;
-        position: sticky;
-        top: 0;
-        z-index: 10;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        border-bottom: 2px solid #ddd;
-      }
+  /* NOISE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 9997; opacity: 0.4;
+  }
 
-      .header-content h1 {
-        font-size: 1.5em;
-        margin: 0;
-        font-weight: 700;
-        color: #333;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-      }
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 24px 60px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: linear-gradient(to bottom, rgba(10,10,15,0.95), transparent);
+    backdrop-filter: blur(8px);
+  }
+  .nav-logo {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 40px; list-style: none; }
+  .nav-links a {
+    font-size: 12px; letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.3s;
+    font-family: 'Space Mono', monospace;
+  }
+  .nav-links a:hover { color: var(--accent); }
 
-      .header-content p {
-        margin-top: 10px;
-        font-weight: 300;
-        font-size: 1em;
-        color: #555;
-      }
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 120px 60px 80px;
+    position: relative;
+    overflow: hidden;
+  }
 
-    /* Section Styles */
-    section {
-      padding: 50px 10%;
-      margin: 20px 0;
-      border-radius: 10px;
-      background-color: #f7f7f7;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      animation: fadeIn 1.5s ease-in-out;
-    }
+  .hero-bg {
+    position: absolute; inset: 0; pointer-events: none;
+    overflow: hidden;
+  }
+  .hero-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.18;
+    animation: float 8s ease-in-out infinite;
+  }
+  .orb1 { width: 500px; height: 500px; background: var(--accent); right: -100px; top: -100px; animation-delay: 0s; }
+  .orb2 { width: 350px; height: 350px; background: var(--accent2); right: 200px; bottom: 0; animation-delay: -3s; }
+  .orb3 { width: 250px; height: 250px; background: var(--accent3); left: 30%; top: 20%; animation-delay: -5s; }
 
-    section h2 {
-      font-size: 2em;
-      margin-bottom: 20px;
-      font-weight: 600;
-      border-bottom: 2px solid #ddd;
-      padding-bottom: 10px;
-      color: #444;
-    }
+  @keyframes float {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-30px) scale(1.05); }
+  }
 
-    section p {
-      font-weight: 300;
-      color: #555;
-    }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    position: relative; z-index: 1;
+  }
 
-    /* Fade-in Animation */
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+  .hero-left {}
 
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 20px;
-      font-size: 0.9em;
-      background-color: #f9f9f9;
-      color: #666;
-    }
-  </style>
+  .hero-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s ease forwards;
+  }
+  .hero-tag::before {
+    content: '';
+    width: 30px; height: 1px;
+    background: var(--accent);
+    display: block;
+  }
+
+  .hero-name {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(52px, 7vw, 88px);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s ease forwards;
+  }
+  .hero-name .line2 {
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--text);
+  }
+  .hero-name .accent-word {
+    color: var(--accent);
+  }
+
+  .hero-desc {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--muted);
+    max-width: 420px;
+    margin-bottom: 48px;
+    font-weight: 300;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.6s ease forwards;
+  }
+
+  .hero-cta {
+    display: flex; gap: 16px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.8s ease forwards;
+  }
+  .btn-primary {
+    padding: 14px 32px;
+    background: var(--accent);
+    color: var(--bg);
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    text-transform: uppercase;
+    border: none; cursor: pointer;
+    transition: all 0.3s ease;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+    display: inline-block;
+  }
+  .btn-primary:hover {
+    background: var(--accent2);
+    transform: translateY(-2px);
+    box-shadow: 0 20px 40px rgba(127,255,178,0.2);
+  }
+  .btn-outline {
+    padding: 14px 32px;
+    background: transparent;
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    text-transform: uppercase;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  }
+  .btn-outline:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  /* HERO RIGHT */
+  .hero-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    opacity: 0;
+    animation: fadeIn 1.2s 0.6s ease forwards;
+  }
+  .avatar-frame {
+    position: relative;
+    width: 320px; height: 320px;
+  }
+  .avatar-ring {
+    position: absolute; inset: -20px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    animation: spin 20s linear infinite;
+  }
+  .avatar-ring::before {
+    content: '';
+    position: absolute;
+    width: 8px; height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    top: -4px; left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 0 16px var(--accent);
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .avatar-img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    filter: grayscale(20%) contrast(1.05);
+    background: var(--card);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 80px;
+    overflow: hidden;
+  }
+
+  /* Floating badge */
+  .float-badge {
+    position: absolute;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 20px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    backdrop-filter: blur(10px);
+    animation: floatBadge 4s ease-in-out infinite;
+  }
+  .float-badge .badge-val {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--accent);
+    font-family: 'Syne', sans-serif;
+    display: block;
+  }
+  .badge1 { bottom: 20px; left: -40px; animation-delay: 0s; }
+  .badge2 { top: 30px; right: -60px; animation-delay: -2s; }
+  .badge3 { bottom: 100px; right: -50px; animation-delay: -1s; font-size: 10px; }
+
+  @keyframes floatBadge {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  /* SCROLL INDICATOR */
+  .scroll-indicator {
+    position: absolute; bottom: 40px; left: 60px;
+    display: flex; align-items: center; gap: 12px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeIn 1s 1.5s ease forwards;
+  }
+  .scroll-line {
+    width: 40px; height: 1px;
+    background: var(--muted);
+    position: relative;
+    overflow: hidden;
+  }
+  .scroll-line::after {
+    content: '';
+    position: absolute; top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: var(--accent);
+    animation: scrollLine 2s ease-in-out infinite;
+  }
+  @keyframes scrollLine { to { left: 200%; } }
+
+  /* SECTION BASE */
+  section {
+    padding: 120px 60px;
+    max-width: 1320px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    display: flex; align-items: center; gap: 20px;
+    margin-bottom: 80px;
+  }
+  .section-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 80px;
+    align-items: start;
+  }
+  .about-text p {
+    font-size: 16px;
+    line-height: 1.9;
+    color: var(--muted);
+    margin-bottom: 20px;
+    font-weight: 300;
+  }
+  .about-text p strong { color: var(--text); font-weight: 500; }
+
+  .about-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 40px;
+  }
+  .info-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .info-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+  }
+  .info-card .label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 6px;
+  }
+  .info-card .value {
+    font-size: 14px;
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  /* SKILLS */
+  .skills-wrap {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+  }
+  .skill-group {}
+  .skill-group-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .skill-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .chip {
+    padding: 8px 18px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    font-size: 13px;
+    color: var(--text);
+    transition: all 0.3s;
+    cursor: default;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+  }
+  .chip:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(127,255,178,0.05);
+    transform: scale(1.05);
+  }
+
+  /* EXPERIENCE */
+  .exp-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+  }
+  .exp-list::before {
+    content: '';
+    position: absolute;
+    left: 20px; top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+    opacity: 0.3;
+  }
+  .exp-item {
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 24px;
+    padding: 40px 0;
+    border-bottom: 1px solid var(--border);
+    transition: all 0.4s ease;
+    position: relative;
+  }
+  .exp-item:last-child { border-bottom: none; }
+  .exp-item:hover .exp-content {
+    transform: translateX(8px);
+  }
+  .exp-dot {
+    width: 12px; height: 12px;
+    background: var(--card);
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+    margin-top: 8px;
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s;
+    margin-left: 14px;
+  }
+  .exp-item:hover .exp-dot {
+    background: var(--accent);
+    box-shadow: 0 0 20px var(--accent);
+    transform: scale(1.3);
+  }
+  .exp-content { transition: transform 0.4s ease; }
+  .exp-year {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+  .exp-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .exp-company {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 16px;
+    font-family: 'Space Mono', monospace;
+  }
+  .exp-desc {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--muted);
+    font-weight: 300;
+    max-width: 600px;
+  }
+
+  /* EDUCATION */
+  .edu-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  .edu-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 36px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+  }
+  .edu-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(127,255,178,0.05), transparent);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+  .edu-card:hover::before { opacity: 1; }
+  .edu-card:hover {
+    border-color: rgba(127,255,178,0.3);
+    transform: translateY(-6px);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+  }
+  .edu-year {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+    border: 1px solid rgba(127,255,178,0.3);
+    padding: 4px 12px;
+    border-radius: 100px;
+    letter-spacing: 0.1em;
+    margin-bottom: 20px;
+  }
+  .edu-degree {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .edu-school {
+    font-size: 13px;
+    color: var(--muted);
+    font-family: 'Space Mono', monospace;
+  }
+  .edu-icon {
+    position: absolute;
+    bottom: 20px; right: 24px;
+    font-size: 48px;
+    opacity: 0.05;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+  }
+
+  /* CONTACT */
+  .contact-wrap {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .contact-wrap::before {
+    content: '';
+    position: absolute;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(127,255,178,0.08), transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+  .contact-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: flex; align-items: center; gap: 10px;
+    justify-content: center;
+  }
+  .contact-heading {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 20px;
+    line-height: 1;
+  }
+  .contact-heading span { color: var(--accent); }
+
+  .contact-sub {
+    font-size: 16px;
+    color: var(--muted);
+    max-width: 440px;
+    margin: 0 auto 48px;
+    font-weight: 300;
+    line-height: 1.7;
+  }
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 48px;
+  }
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 12px 24px;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    transition: all 0.3s;
+    letter-spacing: 0.05em;
+  }
+  .contact-link:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-3px);
+  }
+  .contact-link .icon { font-size: 16px; }
+
+  /* FOOTER */
+  footer {
+    padding: 40px 60px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* GLITCH EFFECT on name */
+  .glitch {
+    position: relative;
+  }
+  .glitch::before,
+  .glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    clip-path: polygon(0 30%, 100% 30%, 100% 50%, 0 50%);
+  }
+  .glitch::before {
+    color: var(--accent2);
+    animation: glitch1 3s infinite;
+    left: 2px;
+  }
+  .glitch::after {
+    color: var(--accent3);
+    animation: glitch2 3s infinite;
+    left: -2px;
+  }
+  @keyframes glitch1 {
+    0%, 90%, 100% { transform: translateX(0); opacity: 0; }
+    92% { transform: translateX(-4px); opacity: 0.7; }
+    94% { transform: translateX(4px); opacity: 0.7; }
+    96% { transform: translateX(0); opacity: 0; }
+  }
+  @keyframes glitch2 {
+    0%, 93%, 100% { transform: translateX(0); opacity: 0; }
+    95% { transform: translateX(4px); opacity: 0.5; }
+    97% { transform: translateX(-4px); opacity: 0.5; }
+    99% { transform: translateX(0); opacity: 0; }
+  }
+
+  /* STATUS BADGE */
+  .status-dot {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    padding: 6px 16px;
+    border: 1px solid rgba(127,255,178,0.2);
+    border-radius: 100px;
+    background: rgba(127,255,178,0.05);
+    margin-bottom: 36px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0s ease forwards;
+  }
+  .status-dot span {
+    width: 7px; height: 7px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse 2s ease infinite;
+    box-shadow: 0 0 0 0 var(--accent);
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(127,255,178,0.4); }
+    70% { box-shadow: 0 0 0 8px rgba(127,255,178,0); }
+    100% { box-shadow: 0 0 0 0 rgba(127,255,178,0); }
+  }
+
+  /* MARQUEE */
+  .marquee-section {
+    overflow: hidden;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 20px 0;
+    background: var(--bg2);
+  }
+  .marquee-track {
+    display: flex;
+    gap: 60px;
+    animation: marquee 20s linear infinite;
+    white-space: nowrap;
+  }
+  .marquee-item {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+  }
+  .marquee-item .sep {
+    color: var(--accent);
+    font-size: 18px;
+  }
+  @keyframes marquee { to { transform: translateX(-50%); } }
+
+  /* SCROLL PROGRESS */
+  .progress-bar {
+    position: fixed; top: 0; left: 0;
+    height: 2px;
+    background: linear-gradient(to right, var(--accent), var(--accent2));
+    z-index: 1000;
+    transition: width 0.1s;
+    box-shadow: 0 0 10px var(--accent);
+  }
+
+  /* CHIKURO TRIGGER */
+  .chikuro-trigger {
+    color: var(--accent2);
+    cursor: pointer;
+    position: relative;
+    font-weight: 700;
+    transition: all 0.2s;
+    padding: 2px 6px;
+    border-radius: 4px;
+    border-bottom: 1px dashed rgba(94,230,255,0.4);
+  }
+  .chikuro-trigger:hover {
+    color: #fff;
+    background: rgba(94,230,255,0.1);
+    border-bottom-color: var(--accent2);
+  }
+  .chikuro-hint {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.05em;
+    color: var(--accent2);
+    opacity: 0;
+    transform: translateY(2px);
+    transition: all 0.2s;
+    margin-left: 4px;
+    display: inline-block;
+  }
+  .chikuro-trigger:hover .chikuro-hint {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* CHIKURO OVERLAY */
+  .chikuro-overlay {
+    position: fixed; inset: 0;
+    background: rgba(5,5,10,0.85);
+    backdrop-filter: blur(16px);
+    z-index: 5000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+  .chikuro-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .chikuro-modal {
+    width: 100%;
+    max-width: 1000px;
+    background: var(--card);
+    border: 1px solid rgba(94,230,255,0.25);
+    border-radius: 20px;
+    overflow: hidden;
+    transform: scale(0.92) translateY(24px);
+    transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
+    opacity: 0;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.6), 0 0 60px rgba(94,230,255,0.06);
+  }
+  .chikuro-overlay.active .chikuro-modal {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+
+  .chikuro-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 28px;
+    border-bottom: 1px solid var(--border);
+    gap: 16px;
+  }
+  .chikuro-modal-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--accent2);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .chikuro-modal-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .chikuro-modal-url {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .url-dot {
+    width: 7px; height: 7px;
+    background: #28c840;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  .chikuro-modal-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+  .chikuro-open-btn {
+    padding: 10px 20px;
+    background: var(--accent2);
+    color: var(--bg);
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .chikuro-open-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(94,230,255,0.3);
+  }
+  .chikuro-close-btn {
+    width: 36px; height: 36px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--muted);
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .chikuro-close-btn:hover {
+    background: rgba(255,107,107,0.15);
+    border-color: var(--accent3);
+    color: var(--accent3);
+  }
+
+  /* BROWSER BAR */
+  .chikuro-frame-wrap {
+    display: flex;
+    flex-direction: column;
+  }
+  .chikuro-browser-bar {
+    background: #0d0d1a;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .browser-dots {
+    display: flex; gap: 6px;
+  }
+  .browser-dots span {
+    width: 11px; height: 11px;
+    border-radius: 50%;
+    display: block;
+    opacity: 0.8;
+  }
+  .browser-url {
+    flex: 1;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 5px 14px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    max-width: 340px;
+  }
+  .lock-icon { font-size: 11px; }
+
+  /* IFRAME */
+  .chikuro-iframe-container {
+    position: relative;
+    height: 560px;
+    overflow: hidden;
+    background: #fff;
+  }
+  .chikuro-iframe-container iframe {
+    width: 100%; height: 100%;
+    border: none;
+    display: block;
+    transition: opacity 0.5s ease;
+  }
+  .iframe-loading {
+    position: absolute; inset: 0;
+    background: var(--card);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    transition: opacity 0.4s ease;
+  }
+  .iframe-loading.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .loading-spinner {
+    width: 36px; height: 36px;
+    border: 2px solid var(--border);
+    border-top-color: var(--accent2);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+
+  @media (max-width: 900px) {
+    nav { padding: 20px 24px; }
+    .hero { padding: 100px 24px 60px; }
+    .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+    .hero-right { display: none; }
+    section { padding: 80px 24px; }
+    .about-grid { grid-template-columns: 1fr; }
+    .skills-wrap { grid-template-columns: 1fr; }
+    .edu-grid { grid-template-columns: 1fr; }
+    .contact-wrap { padding: 40px 24px; }
+    footer { flex-direction: column; gap: 16px; text-align: center; }
+  }
+</style>
 </head>
 <body>
-  <header>
-    <div class="header-content">
-      <h1>Hallo, World</h1>
-      <p>I'm Is Tech Enthusiast | Developer | Content Creator</p>
-    </div>
-  </header>
 
-  <section id="about">
-    <h2>About Me</h2>
-    <div style="display: flex; align-items: center; gap: 20px;">
-      <img src="arief.png" alt="Arief Kurniawan" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-      <p>
-        Hello, I'm Arief, a passionate developer who loves creating beautiful and functional web applications. I specialize in modern web technologies and strive to make an impact in the tech world.
+<!-- Cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Scroll Progress -->
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">AK.DEV</a>
+  <ul class="nav-links">
+    <li><a href="#about">Tentang</a></li>
+    <li><a href="#skills">Skill</a></li>
+    <li><a href="#experience">Pengalaman</a></li>
+    <li><a href="#contact">Kontak</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg">
+    <div class="hero-orb orb1"></div>
+    <div class="hero-orb orb2"></div>
+    <div class="hero-orb orb3"></div>
+  </div>
+
+  <div class="hero-grid">
+    <div class="hero-left">
+      <div class="status-dot">
+        <span></span>
+        Tersedia untuk peluang baru
+      </div>
+      <div class="hero-tag">Full Stack Developer</div>
+      <h1 class="hero-name">
+        <div class="glitch" data-text="Arief">Arief</div>
+        <div class="line2">Kurniawan</div>
+      </h1>
+      <p class="hero-desc">
+        Web developer berpengalaman yang membangun <strong>solusi digital yang elegan</strong>. Spesialis PHP, Laravel, dan pengembangan aplikasi berbasis web untuk kebutuhan nyata.
       </p>
+      <div class="hero-cta">
+        <a href="#experience" class="btn-primary">Lihat Pengalaman</a>
+        <a href="#contact" class="btn-outline">Hubungi Saya</a>
+      </div>
     </div>
-  </section>
 
-  <section id="projects">
-    <h2>Projects</h2>
-    <div id="project-menu">
-      <!-- Dynamic categories and projects will be added here -->
+    <div class="hero-right">
+      <div class="avatar-frame">
+        <div class="avatar-ring"></div>
+        <div class="avatar-img">👨‍💻</div>
+
+        <div class="float-badge badge1">
+          <span class="badge-val">5+</span>
+          Tahun Pengalaman
+        </div>
+        <div class="float-badge badge2">
+          <span class="badge-val">10+</span>
+          Proyek Selesai
+        </div>
+        <div class="float-badge badge3">
+          <span class="badge-val" style="color:var(--accent2)">Open</span>
+          To Work
+        </div>
+      </div>
     </div>
-  </section>
+  </div>
 
-  <section id="contact">
-    <h2>Contact Me</h2>
-    <p>GitHub: <a href="https://github.com/arief1306" target="_blank">github.com/arief1306</a></p>
-  </section>
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+    Scroll untuk explore
+  </div>
+</div>
 
-  <footer>
-    &copy; 2024 Arief Kurniawan - All Rights Reserved
-  </footer>
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <div class="marquee-item">
+      PHP <span class="sep">✦</span> Laravel <span class="sep">✦</span> CodeIgniter <span class="sep">✦</span> JavaScript <span class="sep">✦</span> MySQL <span class="sep">✦</span> Bootstrap <span class="sep">✦</span> HTML & CSS <span class="sep">✦</span> Web Development <span class="sep">✦</span> IT Support <span class="sep">✦</span> Full Stack <span class="sep">✦</span>
+    </div>
+    <div class="marquee-item">
+      PHP <span class="sep">✦</span> Laravel <span class="sep">✦</span> CodeIgniter <span class="sep">✦</span> JavaScript <span class="sep">✦</span> MySQL <span class="sep">✦</span> Bootstrap <span class="sep">✦</span> HTML & CSS <span class="sep">✦</span> Web Development <span class="sep">✦</span> IT Support <span class="sep">✦</span> Full Stack <span class="sep">✦</span>
+    </div>
+  </div>
+</div>
 
-  <script src="script.js"></script>
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header reveal">
+    <span class="section-num">01</span>
+    <h2 class="section-title">Tentang Saya</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>Halo! Saya <strong>Arief Kurniawan</strong>, seorang web developer berbasis di Kabupaten Bandung, Indonesia. Saya bersemangat dalam membangun aplikasi web yang tidak hanya fungsional, tetapi juga memberikan pengalaman pengguna yang luar biasa.</p>
+      <p>Dengan pengalaman mulai dari pengembangan sistem informasi pesantren hingga aplikasi SDM untuk Universitas Telkom, saya terbiasa bekerja pada proyek nyata dengan dampak nyata.</p>
+      <p>Sebagai <strong>freelancer aktif</strong>, saya telah membantu klien seperti DIZETO dan CHIKURO mewujudkan visi digital mereka melalui landing page dan aplikasi web yang berkualitas.</p>
+    </div>
+
+    <div class="reveal">
+      <div class="about-info">
+        <div class="info-card">
+          <div class="label">Lokasi</div>
+          <div class="value">Kabupaten Bandung, Indonesia</div>
+        </div>
+        <div class="info-card">
+          <div class="label">Email</div>
+          <div class="value">Arief.k1306@gmail.com</div>
+        </div>
+        <div class="info-card">
+          <div class="label">Telepon</div>
+          <div class="value">081224636305</div>
+        </div>
+        <div class="info-card">
+          <div class="label">Status</div>
+          <div class="value" style="color:var(--accent)">● Open to Work</div>
+        </div>
+        <div class="info-card" style="grid-column: span 2;">
+          <div class="label">Portfolio</div>
+          <div class="value">arief1306.github.io/myportofolio</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" style="background: var(--bg2); max-width: 100%; padding: 120px 0;">
+  <div style="max-width: 1320px; margin: 0 auto; padding: 0 60px;">
+    <div class="section-header reveal">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Kemampuan</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="skills-wrap reveal">
+      <div class="skill-group">
+        <div class="skill-group-title">Bahasa Pemrograman</div>
+        <div class="skill-chips">
+          <div class="chip">PHP</div>
+          <div class="chip">JavaScript</div>
+          <div class="chip">HTML5</div>
+          <div class="chip">CSS3</div>
+          <div class="chip">MySQL</div>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-title">Framework & Library</div>
+        <div class="skill-chips">
+          <div class="chip">Laravel</div>
+          <div class="chip">CodeIgniter</div>
+          <div class="chip">Bootstrap</div>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-title">Bidang Keahlian</div>
+        <div class="skill-chips">
+          <div class="chip">Full Stack Web Dev</div>
+          <div class="chip">IT Support</div>
+          <div class="chip">Systems Analysis</div>
+          <div class="chip">Landing Page</div>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-title">Tools & Lainnya</div>
+        <div class="skill-chips">
+          <div class="chip">GitHub</div>
+          <div class="chip">Web Hosting</div>
+          <div class="chip">Database Design</div>
+          <div class="chip">REST API</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-header reveal">
+    <span class="section-num">03</span>
+    <h2 class="section-title">Pengalaman</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="exp-list">
+    <div class="exp-item reveal">
+      <div class="exp-dot"></div>
+      <div class="exp-content">
+        <div class="exp-year">2023 — Sekarang</div>
+        <div class="exp-title">Full Stack Web Developer</div>
+        <div class="exp-company">Universitas Telkom</div>
+        <p class="exp-desc">Mengembangkan aplikasi berbasis web untuk bidang Sumber Daya Manusia (SDM) institusi. Menangani pengembangan end-to-end dari desain database hingga implementasi fitur frontend dan backend.</p>
+      </div>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-dot"></div>
+      <div class="exp-content">
+        <div class="exp-year">2022 — Sekarang</div>
+        <div class="exp-title">Freelance Web Developer</div>
+        <div class="exp-company">Self-Employed · Klien: DIZETO, <span class="chikuro-trigger" onclick="openChikuro()">CHIKURO <span class="chikuro-hint">↗ lihat website</span></span></div>
+        <p class="exp-desc">Membuat landing page dan aplikasi web sesuai kebutuhan klien dari berbagai industri. Mengerjakan proyek dari awal hingga deployment, termasuk konsultasi kebutuhan teknis dan desain UI.</p>
+      </div>
+    </div>
+
+    <!-- CHIKURO MODAL -->
+    <div class="chikuro-overlay" id="chikuroOverlay" onclick="closeChikuro(event)">
+      <div class="chikuro-modal" id="chikuroModal">
+        <div class="chikuro-modal-header">
+          <div class="chikuro-modal-meta">
+            <div class="chikuro-modal-tag">Proyek Klien</div>
+            <h3 class="chikuro-modal-title">CHIKURO</h3>
+            <p class="chikuro-modal-url">
+              <span class="url-dot"></span>
+              chikuro.com
+            </p>
+          </div>
+          <div class="chikuro-modal-actions">
+            <a href="https://chikuro.com" target="_blank" class="chikuro-open-btn">Buka Website ↗</a>
+            <button class="chikuro-close-btn" onclick="closeChikuro()">✕</button>
+          </div>
+        </div>
+        <div class="chikuro-frame-wrap">
+          <div class="chikuro-browser-bar">
+            <div class="browser-dots">
+              <span style="background:#ff5f57"></span>
+              <span style="background:#febc2e"></span>
+              <span style="background:#28c840"></span>
+            </div>
+            <div class="browser-url">
+              <span class="lock-icon">🔒</span>
+              chikuro.com
+            </div>
+          </div>
+          <div class="chikuro-iframe-container">
+            <iframe
+              id="chikuroFrame"
+              src=""
+              title="Chikuro Website"
+              sandbox="allow-scripts allow-same-origin allow-popups"
+              loading="lazy"
+            ></iframe>
+            <div class="iframe-loading" id="iframeLoading">
+              <div class="loading-spinner"></div>
+              <p>Memuat chikuro.com…</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-dot"></div>
+      <div class="exp-content">
+        <div class="exp-year">2021</div>
+        <div class="exp-title">Sistem Analyst</div>
+        <div class="exp-company">Pesantren Al-Khalili Bandung</div>
+        <p class="exp-desc">Membuat aplikasi setor hafalan Al-Quran sebagai proyek tugas akhir D3. Menganalisis kebutuhan sistem, merancang database, dan mengimplementasikan solusi digital untuk manajemen hafalan santri.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education" style="background: var(--bg2); max-width: 100%; padding: 120px 0;">
+  <div style="max-width: 1320px; margin: 0 auto; padding: 0 60px;">
+    <div class="section-header reveal">
+      <span class="section-num">04</span>
+      <h2 class="section-title">Pendidikan</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="edu-grid reveal">
+      <div class="edu-card">
+        <div class="edu-year">2016 — 2021</div>
+        <div class="edu-degree">D3 Sistem Informasi</div>
+        <div class="edu-school">Telkom University</div>
+        <div class="edu-icon">D3</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-year">2023 — 2025</div>
+        <div class="edu-degree">S1 Informatika</div>
+        <div class="edu-school">Telkom University</div>
+        <div class="edu-icon">S1</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-wrap reveal">
+    <div class="contact-label">
+      <span>✦</span> Mari Berkolaborasi <span>✦</span>
+    </div>
+    <h2 class="contact-heading">Punya Proyek <span>Keren?</span></h2>
+    <p class="contact-sub">Saya selalu terbuka untuk proyek baru, kolaborasi, atau sekadar ngobrol soal teknologi dan web development.</p>
+
+    <div class="contact-links">
+      <a href="mailto:Arief.k1306@gmail.com" class="contact-link">
+        <span class="icon">✉</span>
+        Arief.k1306@gmail.com
+      </a>
+      <a href="tel:081224636305" class="contact-link">
+        <span class="icon">☎</span>
+        081224636305
+      </a>
+      <a href="https://arief1306.github.io/myportofolio/" target="_blank" class="contact-link">
+        <span class="icon">◈</span>
+        Portfolio
+      </a>
+    </div>
+
+    <a href="mailto:Arief.k1306@gmail.com" class="btn-primary">Kirim Pesan Sekarang</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2025 Arief Kurniawan</span>
+  <span style="color: var(--accent);">Dibuat dengan ♥ di Bandung</span>
+  <span>arief1306.github.io/myportofolio</span>
+</footer>
+
+<script>
+  // CURSOR
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx - 6 + 'px';
+    cursor.style.top = my - 6 + 'px';
+  });
+
+  function animateRing() {
+    rx += (mx - rx - 18) * 0.12;
+    ry += (my - ry - 18) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  document.querySelectorAll('a, button, .chip, .info-card').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.transform = 'scale(2.5)';
+      ring.style.transform = 'scale(1.5)';
+      ring.style.opacity = '0.3';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.transform = 'scale(1)';
+      ring.style.transform = 'scale(1)';
+      ring.style.opacity = '0.5';
+    });
+  });
+
+  // SCROLL PROGRESS
+  const bar = document.getElementById('progressBar');
+  window.addEventListener('scroll', () => {
+    const s = document.documentElement.scrollTop;
+    const h = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (s / h * 100) + '%';
+  });
+
+  // REVEAL ON SCROLL
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, 100);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // STAGGER CHILDREN
+  document.querySelectorAll('.about-info, .skills-wrap, .edu-grid, .contact-links').forEach(parent => {
+    [...parent.children].forEach((child, i) => {
+      child.style.transitionDelay = (i * 0.1) + 's';
+    });
+  });
+
+  // SMOOTH NAV
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  // CHIKURO MODAL
+  function openChikuro() {
+    const overlay = document.getElementById('chikuroOverlay');
+    const frame = document.getElementById('chikuroFrame');
+    const loading = document.getElementById('iframeLoading');
+
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+
+    // Load iframe
+    loading.classList.remove('hidden');
+    frame.style.opacity = '0';
+    frame.src = 'https://chikuro.com';
+
+    frame.onload = () => {
+      loading.classList.add('hidden');
+      frame.style.opacity = '1';
+    };
+    // Fallback timeout (some sites block iframe)
+    setTimeout(() => {
+      if (loading && !loading.classList.contains('hidden')) {
+        loading.innerHTML = `
+          <div style="text-align:center; padding: 20px;">
+            <div style="font-size:40px; margin-bottom:16px;">🔒</div>
+            <p style="color:var(--text); margin-bottom:8px; font-family:'Syne',sans-serif; font-size:16px; font-weight:700;">Website tidak bisa di-embed</p>
+            <p style="margin-bottom:24px;">chikuro.com memblokir tampilan iframe.</p>
+            <a href="https://chikuro.com" target="_blank" class="chikuro-open-btn" style="padding:12px 28px; background:var(--accent2); color:var(--bg); font-family:'Syne',sans-serif; font-weight:700; font-size:13px; text-decoration:none; border-radius:8px;">
+              Buka di Tab Baru ↗
+            </a>
+          </div>
+        `;
+      }
+    }, 5000);
+  }
+
+  function closeChikuro(e) {
+    if (e && e.target !== document.getElementById('chikuroOverlay')) return;
+    const overlay = document.getElementById('chikuroOverlay');
+    const frame = document.getElementById('chikuroFrame');
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+    setTimeout(() => { frame.src = ''; }, 400);
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeChikuro();
+  });
+
+  // TILT EFFECT on edu cards
+  document.querySelectorAll('.edu-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      card.style.transform = `perspective(600px) rotateY(${x * 12}deg) rotateX(${-y * 12}deg) translateY(-6px)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+    });
+  });
+</script>
 </body>
 </html>
